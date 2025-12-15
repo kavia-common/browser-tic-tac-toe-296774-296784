@@ -1,104 +1,348 @@
-/* CSS Variables for Theme Management */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
-}
+  --primary: #2563eb;
+  --accent: #f59e0b;
+  --bg: #f9fafb;
+  --surface: #ffffff;
+  --text: #111827;
+  --muted: rgba(17, 24, 39, 0.65);
+  --error: #ef4444;
 
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+  --shadow-sm: 0 1px 2px rgba(17, 24, 39, 0.06), 0 1px 1px rgba(17, 24, 39, 0.04);
+  --shadow-md: 0 10px 25px rgba(17, 24, 39, 0.10), 0 2px 8px rgba(17, 24, 39, 0.06);
+
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 10px;
+
+  --focus: 0 0 0 3px rgba(37, 99, 235, 0.25);
 }
 
 .App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  background: radial-gradient(800px 420px at 15% 0%, rgba(37, 99, 235, 0.10), transparent 60%),
+    radial-gradient(700px 420px at 85% 10%, rgba(245, 158, 11, 0.10), transparent 55%),
+    var(--bg);
+  color: var(--text);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.ttt-shell {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 28px 16px 26px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
+.ttt-header {
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.10), rgba(249, 250, 251, 0.95));
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-lg);
+  padding: 18px 18px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
+  justify-content: space-between;
+  gap: 16px;
 }
 
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+.ttt-title {
+  margin: 0;
+  font-size: 26px;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 600;
+.ttt-subtitle {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.ttt-scores {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.ttt-scoreCard {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  min-width: 86px;
+  box-shadow: var(--shadow-sm);
+}
+
+.ttt-scoreCard__label {
+  font-weight: 700;
+  font-size: 12px;
+  color: rgba(17, 24, 39, 0.80);
+}
+
+.ttt-scoreCard__value {
+  margin-top: 4px;
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--text);
+}
+
+.ttt-scoreCard--draws .ttt-scoreCard__label {
+  color: rgba(17, 24, 39, 0.65);
+}
+
+.ttt-main {
+  margin-top: 18px;
+}
+
+.ttt-game {
+  display: grid;
+  gap: 14px;
+}
+
+.ttt-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 4px;
+}
+
+.ttt-status__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(17, 24, 39, 0.08);
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+}
+
+.ttt-status__pill--winner {
+  border-color: rgba(245, 158, 11, 0.35);
+  background: linear-gradient(90deg, rgba(245, 158, 11, 0.14), rgba(255, 255, 255, 0.9));
+}
+
+.ttt-status__pill--draw {
+  border-color: rgba(17, 24, 39, 0.14);
+}
+
+.ttt-status__env {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.ttt-stage {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 14px;
+  align-items: start;
+}
+
+.ttt-boardWrap {
+  background: var(--surface);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+}
+
+.ttt-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.ttt-board__cell {
+  display: contents;
+}
+
+.ttt-square {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 14px;
+  border: 1px solid rgba(17, 24, 39, 0.10);
+  background: linear-gradient(180deg, rgba(37, 99, 235, 0.03), rgba(255, 255, 255, 0.96));
+  box-shadow: var(--shadow-sm);
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+  display: grid;
+  place-items: center;
+  padding: 0;
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+.ttt-square:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(17, 24, 39, 0.10), 0 2px 8px rgba(17, 24, 39, 0.06);
+  border-color: rgba(37, 99, 235, 0.35);
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
+.ttt-square:active:not(:disabled) {
+  transform: translateY(0px);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.ttt-square:disabled {
+  cursor: not-allowed;
+  opacity: 0.95;
+}
+
+.ttt-square:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-sm), var(--focus);
+}
+
+.ttt-square__value {
+  font-weight: 900;
+  font-size: clamp(34px, 8vw, 54px);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.ttt-square--x .ttt-square__value {
+  color: var(--primary);
+}
+
+.ttt-square--o .ttt-square__value {
+  color: var(--accent);
+}
+
+.ttt-square--highlight {
+  border-color: rgba(245, 158, 11, 0.55);
+  background: linear-gradient(180deg, rgba(245, 158, 11, 0.16), rgba(255, 255, 255, 0.96));
+}
+
+.ttt-history {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(17, 24, 39, 0.06);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-lg);
+  padding: 14px;
+}
+
+.ttt-panelTitle {
+  font-weight: 800;
+  font-size: 13px;
+  color: rgba(17, 24, 39, 0.85);
+  margin-bottom: 10px;
+}
+
+.ttt-history__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 8px;
+  max-height: 360px;
+  overflow: auto;
+}
+
+.ttt-history__btn {
+  width: 100%;
+  text-align: left;
+  border-radius: 12px;
+  border: 1px solid rgba(17, 24, 39, 0.10);
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px 10px;
+  cursor: pointer;
+  transition: border-color 0.12s ease, background 0.12s ease, transform 0.12s ease;
+  color: var(--text);
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.ttt-history__btn:hover {
+  border-color: rgba(37, 99, 235, 0.35);
+  background: rgba(37, 99, 235, 0.05);
+}
+
+.ttt-history__btn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
+}
+
+.ttt-history__btn--active {
+  border-color: rgba(37, 99, 235, 0.55);
+  background: rgba(37, 99, 235, 0.10);
+}
+
+.ttt-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.ttt-btn {
+  border: 1px solid rgba(17, 24, 39, 0.10);
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-weight: 800;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, border-color 0.12s ease;
+}
+
+.ttt-btn:focus-visible {
+  outline: none;
+  box-shadow: var(--focus);
+}
+
+.ttt-btn--primary {
+  background: linear-gradient(180deg, rgba(37, 99, 235, 1), rgba(29, 78, 216, 1));
+  color: #ffffff;
+  border-color: rgba(37, 99, 235, 0.55);
+  box-shadow: var(--shadow-sm);
+}
+
+.ttt-btn--primary:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.ttt-btn--ghost {
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--text);
+}
+
+.ttt-btn--ghost:hover {
+  border-color: rgba(245, 158, 11, 0.55);
+  background: rgba(245, 158, 11, 0.08);
+  transform: translateY(-1px);
+}
+
+.ttt-footer {
+  margin-top: 18px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* Responsiveness */
+@media (max-width: 880px) {
+  .ttt-stage {
+    grid-template-columns: 1fr;
   }
-  to {
-    transform: rotate(360deg);
+
+  .ttt-scores {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .ttt-history__list {
+    max-height: 220px;
   }
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
+@media (max-width: 520px) {
+  .ttt-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ttt-scores {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .ttt-controls {
+    grid-template-columns: 1fr;
   }
 }
