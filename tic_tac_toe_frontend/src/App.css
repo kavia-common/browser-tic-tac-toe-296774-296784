@@ -1,20 +1,38 @@
 :root {
-  /* Ocean Professional palette */
-  --primary: #2563eb;
-  --primary-700: #1d4ed8;
-  --accent: #f59e0b;
-  --accent-600: #d97706;
+  /* Ocean Professional palette (tuned for contrast + state clarity)
+     Notes:
+     - Primary/secondary remain "Ocean" blue/amber, but hover/active are slightly deeper for clearer affordance.
+     - Text/muted/surface/bg are tuned to improve readability and separation while keeping the same airy look. */
 
-  --bg: #f9fafb;
-  --surface: #ffffff;
-  --text: #111827;
-  --muted: rgba(17, 24, 39, 0.65);
-  --error: #ef4444;
+  /* Brand */
+  --primary: #1d4ed8;       /* Blue 700: stronger contrast for text/icons on light surfaces */
+  --primary-600: #2563eb;   /* Blue 600: hover/raised accents */
+  --primary-800: #1e40af;   /* Blue 800: active/pressed */
+  --accent: #b45309;        /* Amber 700: stronger contrast than #f59e0b on white */
+  --accent-600: #d97706;    /* Amber 600: hover */
+  --accent-800: #92400e;    /* Amber 800: active/pressed */
 
-  /* Ocean tints */
-  --blue-ink: rgba(37, 99, 235, 0.16);
-  --amber-ink: rgba(245, 158, 11, 0.16);
-  --border: rgba(17, 24, 39, 0.08);
+  /* Neutrals */
+  --bg: #f8fafc;            /* Slightly cooler/cleaner background to separate from surface */
+  --surface: #ffffff;       /* Primary surface */
+  --surface-2: #f1f5f9;     /* Subtle elevated/alt surface (cards/disabled fills) */
+  --text: #0f172a;          /* Slate 900: improved contrast */
+  --muted: rgba(15, 23, 42, 0.72); /* Secondary text: still readable on light surfaces */
+  --error: #dc2626;         /* Red 600: slightly deeper for readability */
+
+  /* State tokens (used by components below) */
+  --border: rgba(15, 23, 42, 0.10);        /* Default border: clearer than 0.08 */
+  --border-strong: rgba(15, 23, 42, 0.16); /* Strong border for emphasis/disabled delineation */
+  --disabled-text: rgba(15, 23, 42, 0.42); /* Disabled label/icon */
+  --disabled-bg: rgba(15, 23, 42, 0.04);   /* Disabled surface tint */
+
+  /* Ocean tints (decorative inks) */
+  --blue-ink: rgba(37, 99, 235, 0.18);
+  --amber-ink: rgba(245, 158, 11, 0.18);
+
+  /* Focus ring: accessible & consistent (slightly stronger visibility) */
+  --focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.30);
+  --focus-ring-strong: 0 0 0 4px rgba(37, 99, 235, 0.34);
 
   /* Spacing scale */
   --space-1: 6px;
@@ -25,19 +43,15 @@
   --space-6: 28px;
 
   /* Shadows */
-  --shadow-xs: 0 1px 1px rgba(17, 24, 39, 0.04);
-  --shadow-sm: 0 1px 2px rgba(17, 24, 39, 0.06), 0 1px 1px rgba(17, 24, 39, 0.04);
-  --shadow-md: 0 10px 25px rgba(17, 24, 39, 0.10), 0 2px 8px rgba(17, 24, 39, 0.06);
-  --shadow-lg: 0 18px 42px rgba(17, 24, 39, 0.14), 0 8px 16px rgba(17, 24, 39, 0.08);
+  --shadow-xs: 0 1px 1px rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.07), 0 1px 1px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 10px 25px rgba(15, 23, 42, 0.11), 0 2px 8px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 18px 42px rgba(15, 23, 42, 0.15), 0 8px 16px rgba(15, 23, 42, 0.09);
 
   /* Radii */
   --radius-lg: 16px;
   --radius-md: 12px;
   --radius-sm: 10px;
-
-  /* Focus ring: accessible & consistent */
-  --focus-ring: 0 0 0 3px rgba(37, 99, 235, 0.24);
-  --focus-ring-strong: 0 0 0 4px rgba(37, 99, 235, 0.28);
 
   /* Animation & easing */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -79,11 +93,11 @@
   gap: var(--space-4);
 
   background:
-    linear-gradient(135deg, rgba(37, 99, 235, 0.16), rgba(249, 250, 251, 0.95) 60%),
+    linear-gradient(135deg, rgba(37, 99, 235, 0.16), rgba(248, 250, 252, 0.95) 60%),
     radial-gradient(500px 240px at 95% 5%, rgba(245, 158, 11, 0.12), transparent 55%),
     var(--surface);
 
-  border: 1px solid rgba(17, 24, 39, 0.06);
+  border: 1px solid rgba(15, 23, 42, 0.07);
   box-shadow: var(--shadow-sm);
 }
 
@@ -259,7 +273,7 @@
   width: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 14px;
-  border: 1px solid rgba(17, 24, 39, 0.12);
+  border: 1px solid rgba(15, 23, 42, 0.14);
   background:
     linear-gradient(180deg, rgba(37, 99, 235, 0.04), rgba(255, 255, 255, 0.97)),
     radial-gradient(240px 140px at 50% 0%, rgba(37, 99, 235, 0.06), transparent 70%);
@@ -271,7 +285,8 @@
     transform 160ms var(--ease-out),
     box-shadow 160ms var(--ease-out),
     border-color 160ms var(--ease-out),
-    background 160ms var(--ease-out);
+    background 160ms var(--ease-out),
+    filter 160ms var(--ease-out);
 
   display: grid;
   place-items: center;
@@ -283,26 +298,33 @@
 .ttt-square:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
-  border-color: rgba(37, 99, 235, 0.38);
+  border-color: rgba(37, 99, 235, 0.46);
   background:
-    linear-gradient(180deg, rgba(37, 99, 235, 0.06), rgba(255, 255, 255, 0.98)),
-    radial-gradient(240px 140px at 50% 0%, rgba(37, 99, 235, 0.10), transparent 70%);
+    linear-gradient(180deg, rgba(37, 99, 235, 0.065), rgba(255, 255, 255, 0.99)),
+    radial-gradient(240px 140px at 50% 0%, rgba(37, 99, 235, 0.12), transparent 70%);
 }
 
 .ttt-square:active:not(:disabled) {
   transform: translateY(0px) scale(0.99);
   box-shadow: var(--shadow-md);
+  border-color: rgba(30, 64, 175, 0.52);
+  filter: saturate(1.02);
 }
 
 .ttt-square:disabled {
   cursor: not-allowed;
-  opacity: 0.96;
+  color: var(--disabled-text);
+  background:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.02), rgba(255, 255, 255, 0.94));
+  border-color: var(--border-strong);
+  opacity: 1; /* Keep legible; rely on disabled tokens instead of global fade */
   box-shadow: var(--shadow-xs);
 }
 
 .ttt-square:focus-visible {
   outline: none;
   box-shadow: var(--shadow-sm), var(--focus-ring-strong);
+  border-color: rgba(37, 99, 235, 0.55);
 }
 
 .ttt-square__value {
@@ -311,7 +333,7 @@
   letter-spacing: -0.03em;
   line-height: 1;
   transform: translateZ(0);
-  text-shadow: 0 1px 0 rgba(17, 24, 39, 0.05);
+  text-shadow: 0 1px 0 rgba(15, 23, 42, 0.06);
 }
 
 .ttt-square--x .ttt-square__value {
@@ -319,7 +341,7 @@
 }
 
 .ttt-square--o .ttt-square__value {
-  color: var(--accent-600);
+  color: var(--accent);
 }
 
 /* Winning highlight with subtle "glow" and animation */
@@ -348,8 +370,8 @@
 
 /* History panel */
 .ttt-history {
-  background: rgba(255, 255, 255, 0.78);
-  border: 1px solid rgba(17, 24, 39, 0.06);
+  background: rgba(255, 255, 255, 0.80);
+  border: 1px solid rgba(15, 23, 42, 0.07);
   box-shadow: var(--shadow-sm);
   border-radius: var(--radius-lg);
   padding: 14px;
@@ -359,7 +381,7 @@
 .ttt-panelTitle {
   font-weight: 900;
   font-size: 13px;
-  color: rgba(17, 24, 39, 0.86);
+  color: rgba(15, 23, 42, 0.88);
   margin-bottom: 10px;
   letter-spacing: 0.01em;
 }
@@ -378,8 +400,8 @@
   width: 100%;
   text-align: left;
   border-radius: 12px;
-  border: 1px solid rgba(17, 24, 39, 0.10);
-  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  background: rgba(255, 255, 255, 0.90);
   padding: 10px 10px;
   cursor: pointer;
 
@@ -395,24 +417,26 @@
 }
 
 .ttt-history__btn:hover {
-  border-color: rgba(37, 99, 235, 0.35);
-  background: rgba(37, 99, 235, 0.05);
+  border-color: rgba(37, 99, 235, 0.44);
+  background: rgba(37, 99, 235, 0.06);
   transform: translateY(-1px);
   box-shadow: var(--shadow-xs);
 }
 
 .ttt-history__btn:active {
   transform: translateY(0px);
+  border-color: rgba(30, 64, 175, 0.44);
 }
 
 .ttt-history__btn:focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
+  border-color: rgba(37, 99, 235, 0.55);
 }
 
 .ttt-history__btn--active {
-  border-color: rgba(37, 99, 235, 0.55);
-  background: rgba(37, 99, 235, 0.10);
+  border-color: rgba(37, 99, 235, 0.62);
+  background: rgba(37, 99, 235, 0.12);
 }
 
 /* Controls: primary + ghost refinement */
@@ -448,33 +472,33 @@
 }
 
 .ttt-btn--primary {
-  background: linear-gradient(180deg, rgba(37, 99, 235, 1), rgba(29, 78, 216, 1));
+  background: linear-gradient(180deg, rgba(29, 78, 216, 1), rgba(30, 64, 175, 1));
   color: #ffffff;
-  border-color: rgba(37, 99, 235, 0.55);
+  border-color: rgba(29, 78, 216, 0.60);
   box-shadow: var(--shadow-sm);
 }
 
 .ttt-btn--primary:hover {
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
-  filter: brightness(1.02);
+  filter: brightness(1.03);
 }
 
 .ttt-btn--primary:active {
   transform: translateY(0px);
   box-shadow: var(--shadow-sm);
-  filter: brightness(0.98);
+  filter: brightness(0.97);
 }
 
 .ttt-btn--ghost {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.94);
   color: var(--text);
   box-shadow: var(--shadow-xs);
 }
 
 .ttt-btn--ghost:hover {
-  border-color: rgba(245, 158, 11, 0.55);
-  background: rgba(245, 158, 11, 0.08);
+  border-color: rgba(180, 83, 9, 0.55);
+  background: rgba(245, 158, 11, 0.10);
   transform: translateY(-1px);
   box-shadow: var(--shadow-sm);
 }
@@ -482,6 +506,18 @@
 .ttt-btn--ghost:active {
   transform: translateY(0px);
   box-shadow: var(--shadow-xs);
+  background: rgba(245, 158, 11, 0.12);
+}
+
+/* Explicit disabled styling (not currently used, but keeps states consistent & accessible) */
+.ttt-btn:disabled {
+  cursor: not-allowed;
+  color: var(--disabled-text);
+  background: var(--surface-2);
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-xs);
+  transform: none;
+  filter: none;
 }
 
 .ttt-footer {
